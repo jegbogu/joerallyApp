@@ -9,7 +9,7 @@ async function handler(req,res){
     if(req.method==='POST'){
         try {
              
-            const{username,password,use,company,comapanyName,message} = req.body
+            const{username,password,use,company,companyName,message} = req.body
             console.log('Connecting to Mongo')
             await connectDB()
             console.log('Connected to Mongo')
@@ -20,7 +20,7 @@ async function handler(req,res){
                 password:hashedPassword,
                 use,
                 company,
-                comapanyName,
+                companyName,
                 message
             })
             await doc.save()

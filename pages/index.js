@@ -1,6 +1,8 @@
 import {Fragment} from 'react'
 import Head from 'next/head'
-import HomePageForm from '../component/home-page/home-form';
+ import HomePageForm from '../component/home-page/home-form';
+ 
+ 
 
 const HomePage = () => {
   return ( 
@@ -14,6 +16,7 @@ const HomePage = () => {
         />
       </Head>
       <h1>Home page</h1>
+      
     <HomePageForm/>
     </Fragment>
     

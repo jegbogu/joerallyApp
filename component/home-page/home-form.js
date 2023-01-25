@@ -94,6 +94,7 @@ setShow(!show)
         
         
     }
+    //setting the user choice to the label for next input field
     function companyHandler(){
         setCname(companyInputRef.current.value)
     }

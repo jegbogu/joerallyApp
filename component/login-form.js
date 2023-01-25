@@ -2,23 +2,23 @@ import { useRef } from "react";
 import { useState } from "react";
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-
-
-
+import { useContext } from "react";
+import userContext from "../store/userContext";
+  
  
-
-
-
-
 const LoginForm = () => {
+    const{user,setUser} = useContext(userContext)
     const validPassword = new RegExp('^(?=.*?[A-Za-z])(?=.*?[0-9]).{6,}$');
  
     const [show, setShow] = useState(false) 
     const[emailErr, setEmailErr] = useState(' ')
     const[password, setPassErr] = useState(' ')
+    const [waitMsg, setWaitMsg] = useState(' ')
+    
     const emailInputRef = useRef()
     const passwordInputRef = useRef()
     const router = useRouter()
+    
 
     //toggle of show and hide password
     function setFnc(){
@@ -31,6 +31,7 @@ const LoginForm = () => {
         const enteredPassword = passwordInputRef.current.value;
 
         //validation
+        setWaitMsg('Hold on for few seconds...')
         if(enteredEmail.length<15){
             setEmailErr('Email Lenght must be greater than Fifteen')
             return;
@@ -54,18 +55,25 @@ const LoginForm = () => {
             },
 
         });
-        const userData = await response.json()
+        let userData = await response.json()
+         
         if(!response.ok){
             throw new Error(userData.message || 'something went wrong')
         }
-        await router.push('/portfolio')
-
-
-    }
+        console.log(userData)
+        console.log(userData.company)
+        setUser(userData)
+        // console.log(user)
+        router.push('/dashboard')
+        }
+   
+     
     return ( 
         <div>
+          
              <form onSubmit={submitHandler}>
                 <div>
+                    <h3>{waitMsg}</h3>
                    <label htmlFor="email">Email</label>
                    <input type='email' 
                    required id="email" 
